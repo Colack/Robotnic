@@ -5,7 +5,7 @@
 // Bot Settings
 const settings = { 
 	mode: true,
-	framework: "Orbital framework 3.0",
+	framework: "Orbital framework",
 	version: "3.0",
 	token: process.env['token'],
 	prefix: 'o!',
@@ -45,29 +45,25 @@ client.once('ready', async () => {
 		
 	}
 	
-	console.log(`Running On Version: ` + settings.version);
-	console.log(`== RUNNING ON ORBITAL FRAMEWORK ==`);
-	console.log(`==       CODED BY COLACK        ==`);
-	
+	console.log("Running " + settings.framework + " " + settings.version);
 	client.user.setActivity(settings.activity, { type: settings.type });
 	
-	// Counts Members is specific client. //
-	
+	// Counts Members in specific client.
 	memberCounter(client);
+
+    bootup();
 });
 
 client.commands = new Discord.Collection();
 client.cooldowns = new Discord.Collection();
 client.events  = new Discord.Collection();
 
-// Different Handlers for Commands/Events //
-
+// Different Handlers for Commands/Events
 ['command_handler', 'event_handler'].forEach(handler =>{
 	require(`./Handlers/${handler}`)(client, Discord);
 });
 
-// Checking for command folders. //
-
+// Check for command folders.
 for (const folder of commandFolders) {
 	const commandFiles = fs.readdirSync(`./Commands/${folder}`).filter(file => file.endsWith('.js'));
 	for (const file of commandFiles) {
@@ -76,6 +72,7 @@ for (const folder of commandFolders) {
 	}
 }
 
+// Show the Orbital framework version and logo.
 function bootup() {
     console.log("= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =");
     console.log("     *                                                            *");
@@ -100,25 +97,22 @@ function bootup() {
     console.log("                         aaaaaaaaaaaaaaaaaaaaaaaa");
     console.log("                      *      aaaaaaaaaaaaaaaa");
     console.log("= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =");
-    console.log("                             Orbital Framework                      ");
-    console.log("  .--,-``-.                           ");
-    console.log(" /   /     '.              ,----..  ");
-    console.log("/ ../        ;            /   /   \  ");
-    console.log("\ ``\  .`-    '          /   .     :  ");
-    console.log(" \___\/   \   :         .   /   ;.  \ ")
-    console.log("      \   :   |        .   ;   /  ` ; ");
-    console.log("      /  /   /         ;   |  ; \ ; | ");
-    console.log("      \  \   \         |   :  | ; | ' ");
-    console.log("  ___ /   :   |        .   |  ' ' ' : ");
-    console.log(" /   /\   /   :        '   ;  \; /  | ");
-    console.log("/ ,,/  ',-    .  ___    \   \  ',  /  ");
-    console.log("\ ''\        ;  /  .\    ;   :    /   ");
-    console.log(" \   \     .'   \  ; |    \   \ .'    ");
-    console.log("  `--`-,,-'      `--'      `---`   ");
-
+    console.log("                          Orbital Framework 3.0                    ");
+    slashN();
+    console.log("                            By Colack (Jack)                       ");
 }
 
-// Login as the Bot //
+// Set Activity for the bot.
+function setActivity() {
+    client.user.setActivity(settings.activity, { type: settings.type });
+}
+
+// Make a line break.
+function slashN() {
+    console.log("\n");
+}
+
+// Login as the Bot
 
 client.login(settings.token);
 
